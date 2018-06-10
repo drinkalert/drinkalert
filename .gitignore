@@ -1,3 +1,21 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @carrering
+Sign out
+1
+0 1 drinkalert/drinkalert
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+drinkalert/.gitignore
+d0ef832  3 days ago
+@carrering carrering Initial commit
+     
+62 lines (44 sloc)  914 Bytes
 # Logs
 logs
 *.log
@@ -59,3 +77,16 @@ typings/
 
 # next.js build output
 .next
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
+Press h to open a hovercard with more details.
