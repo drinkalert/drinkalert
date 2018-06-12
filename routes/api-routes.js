@@ -25,8 +25,10 @@ module.exports = function(app) {
     console.log(req.body);
     db.User.create({
       name: req.body.name,
-      gender: req.body.gender,
+      email: req.body.email,
+      password: req.body.password,
       weight: req.body.weight,
+      age: req.body.age,
     })
       .then(function(dbUser) {
         res.json(dbUser);
