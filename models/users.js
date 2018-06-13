@@ -27,6 +27,17 @@ module.exports = function(sequelize, DataTypes) {
 
     });
 
+    User.sync();
+
+    User.create({
+      name: "Jose",
+      email: "jose@test.com",
+      password: null,
+      weight: 160,
+      sex: "Male"
+
+    });
+
     User.associate = function(models) {
 
         User.belongsTo(models.Drink, {

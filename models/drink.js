@@ -15,6 +15,15 @@ module.exports = function(sequelize, DataTypes) {
         }
 
     });
+    
+    Drink.sync();
+
+    Drink.create({
+      drink_date: null,
+      drink_frequency: 0,
+      drink_start_time: null,
+
+    });
 
     Drink.associate = function(models) {
 
