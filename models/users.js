@@ -13,10 +13,10 @@ module.exports = function(sequelize, DataTypes) {
         },
 
         weight: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
         },
 
-        age: {
+        sex: {
             type: DataTypes.STRING,
         },
 
