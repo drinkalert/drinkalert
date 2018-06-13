@@ -5,6 +5,7 @@
 // Dependencies
 // =============================================================
 var path = require("path");
+var drinkController = require("../controllers/drinkController")
 
 // Routes
 // =============================================================
@@ -17,9 +18,7 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
-  app.get("/drink", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/drink.html"));
-  });
+  app.get("/drink", drinkController.renderDrink);
 
   // user route loads user.html
   app.get("/user", function(req, res) {
