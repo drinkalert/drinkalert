@@ -9,9 +9,16 @@ body{
 
 h2 h3{
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 #floatingbubbles {
     width: 100vw;
     height: 100vh;
+}
+
+#beerButton {
+    width: 100px;
+    height: auto;
+    margin: 0 auto;
 }
