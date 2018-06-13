@@ -26,7 +26,8 @@ module.exports = function(sequelize, DataTypes) {
         },
 
     });
-
+//========================================== 
+// Here is where we input data for testing. Data will be generated automatically.
     User.sync();
 
     User.create({
@@ -37,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
       sex: "Male"
 
     });
+//==========================================
 
     User.associate = function(models) {
 

@@ -15,7 +15,8 @@ module.exports = function(sequelize, DataTypes) {
         }
 
     });
-    
+//========================================== 
+// Here is where we input data for testing. Data will be generated automatically.    
     Drink.sync();
 
     Drink.create({
@@ -24,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       drink_start_time: null,
 
     });
+//==========================================
 
     Drink.associate = function(models) {
 
