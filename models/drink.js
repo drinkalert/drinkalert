@@ -15,5 +15,13 @@ module.exports = function(sequelize, DataTypes) {
         }
 
     });
+
+    Drink.associate = function(models) {
+
+        Drink.hasMany(models.User, {
+        //   onDelete: "cascade"
+        });
+      };
+
     return Drink
 }
