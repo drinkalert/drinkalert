@@ -4,17 +4,17 @@
 // ******************************************************************************
 // *** Dependencies
 // =============================================================
-var express = require("express");
-var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
+const express = require("express");
+const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 
 // Sets up the Express App
 // =============================================================
-var app = express();
-var PORT = process.env.PORT || 8080;
+const app = express();
+const PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
-var db = require("./models");
+const db = require("./models");
 
 
 // Method override for RESTFul form submissions

@@ -12,6 +12,20 @@ module.exports = {
       res.render("partials/drinks", {
         msg: "This is the data being passed from drinkController.js!"
       });
-    }
+    },
+
+    newDrinker: function(req, res){
+      res.render("partials/register", {
+        msg: "registration"
+      })
+      console.log('registraion time')
+    },
+
+    loginDrinker: function(req, res){
+      res.render("partials/login", {
+        msg: "login"
+      })
+      console.log('login happens')
+    },
   };
   
