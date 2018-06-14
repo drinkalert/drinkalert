@@ -5,16 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Drink-Alert</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css"/>
     
 </head>
 <body>
     <h1>Drink Alert!</h1>
-    <h2>HOBEEOR!</h2>
-
+    <h2>HOBEEOR!!!</h2>
+    <div id="beerButton">
+        <img src="assets/images/beerIcon.svg" alt="beerIcon">
+    </div>
 
     <canvas id="floatingbubbles"></canvas>
+    <div id="intro-burp"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/audio.js"></script>
     
+    
+    <audio id="burp" controls
+        source src="assets/audio/introBurp.mp3" type="audio/mpeg">
+    </audio>
+
 </body>
 </html>
