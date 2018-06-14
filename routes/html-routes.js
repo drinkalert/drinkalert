@@ -18,6 +18,10 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
+  app.get("/slider", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/slider.html"))
+  });
+
   app.get("/drink", drinkController.renderDrink);
 
   app.get("/register", drinkController.newDrinker);
