@@ -24,6 +24,10 @@ module.exports = function(app) {
 
   app.get("/drink", drinkController.renderDrink);
 
+  app.get("/register", drinkController.newDrinker);
+
+  app.get("/login", drinkController.loginDrinker);
+
   // user route loads user.html
   app.get("/user", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/user.html"));
