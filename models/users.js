@@ -1,5 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define("User", {
+        id: {
+            allowNull: false,
+            primaryKey: true,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4
+          },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -7,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         
         email: {
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false,
         },
 
@@ -25,29 +32,30 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
         },
 
-    });
+    },
+{
+    underscored: true,
+})
 //========================================== 
 // Here is where we input data for testing. Data will be generated automatically.
-    User.sync();
+    // User.sync();
 
-    User.create({
-      name: "Jose",
-      email: "jose@test.com",
-      password: null,
-      weight: 160,
-      sex: "Male"
+    // User.create({
+    //   name: "Jose",
+    //   email: "jose@test.com",
+    //   password: "xxx",
+    //   weight: 160,
+    //   sex: "Male"
 
-    });
+    // });
 //==========================================
 
     User.associate = function(models) {
 
-        User.belongsTo(models.Drink, {
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      };
+        User.hasMany(models.Drink, {
+            onDelete: "cascade"
+        })
+      }
 
     return User
 }
