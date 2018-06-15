@@ -4,7 +4,7 @@ $(document).ready(function() {
     var userId;
     // Sets a flag for whether or not we're updating a user to be false initially
     var updating = false;
-  
+    console.log('yolo register!')
     // If we have this section in our url, we pull out the user id from the url
     // In localhost:8080/cms?user_id=1, userId is 1
     if (url.indexOf("?user_id=") !== -1) {
@@ -13,24 +13,27 @@ $(document).ready(function() {
     }
   
     // Getting jQuery references to the user body, title, form, and category select
-    var emailInput = $("#body");
-    var titleInput = $("#title");
-    var cmsForm = $("#cms");
-    var userCategorySelect = $("#category");
-    // Giving the userCategorySelect a default value
-    userCategorySelect.val("Personal");
+    var emailInput = $("#email");
+    var passwordInput = $("#password");
+    var weightInput = $("#weight");
+    var sexInput = $("#sex");
+    var nameInput = $("#name")
+    var userForm = $("#userForm");
     // Adding an event listener for when the form is submitted
-    $(cmsForm).on("submit", function handleFormSubmit(event) {
+    $(userForm).on("submit", function handleFormSubmit(event) {
       event.preventDefault();
       // Wont submit the user if we are missing a body or a title
-      if (!titleInput.val().trim() || !bodyInput.val().trim()) {
+      if (!emailInput.val().trim() || !passwordInput.val().trim()) {
         return;
       }
       // Constructing a newUser object to hand to the database
       var newUser = {
-        title: titleInput.val().trim(),
-        body: bodyInput.val().trim(),
-        category: userCategorySelect.val()
+        email: emailInput.val().trim(),
+        password: passwordInput.val().trim(),
+        name: nameInput.val().trim(),
+        sex: sexInput.val().trim(),
+        weight: weightInput.val().trim(),
+        // category: userCategorySelect.val()
       };
   
       console.log(newUser);
@@ -46,21 +49,23 @@ $(document).ready(function() {
       }
     });
   
-    // Submits a new user and brings user to blog page upon completion
-    function submitUser(user) {
-      $.user("/api/users/", user, function() {
-        window.location.href = "/blog";
+    // Submits a new user and brings user to main page upon completion
+    function submitUser(newUser) {
+      console.log('im posting a new user')
+      $.post("/api/users/", newUser, function() {
+        window.location.href = "/drink";
       });
     }
   
     // Gets user data for a user if we're editing
     function getUserData(id) {
+      console.log('im getting a user')
       $.get("/api/users/" + id, function(data) {
         if (data) {
-          // If this user exists, prefill our cms forms with its data
-          titleInput.val(data.title);
-          bodyInput.val(data.body);
-          userCategorySelect.val(data.category);
+          // If this user exists, prefill our user forms with its data
+          nameInput.val(data.name);
+          emailInput.val(data.email);
+          passwordInput.val(data.password);
           // If we have a user with this id, set a flag for us to know to update the user
           // when we hit submit
           updating = true;
@@ -68,15 +73,16 @@ $(document).ready(function() {
       });
     }
   
-    // Update a given user, bring user to the blog page when done
+    // Update a given user, bring user to the main page when done
     function updateUser(user) {
+      console.log('im updating a user')
       $.ajax({
         method: "PUT",
         url: "/api/users",
         data: user
       })
         .then(function() {
-          window.location.href = "/blog";
+          window.location.href = "/main";
         });
     }
   });
