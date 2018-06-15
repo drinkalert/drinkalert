@@ -2,27 +2,26 @@ module.exports = function(sequelize, DataTypes) {
     var Alcohol = sequelize.define("Alcohol", {
         name: {
             type: DataTypes.STRING,
-
             allowNull: false,
         },
 
         alcohol_content: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
         },
 
         ounces: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
         },
 
-        alcohol_type_id: {
-            type: DataType.INTEGER,
-        }
+        // alcohol_type_id: {
+        //     type: DataTypes.INTEGER,
+        // }
 
     });
 
     Alcohol.associate = function(models) {
 
-        Alcohol.belongsTo(models.alcohol_type, {
+        Alcohol.belongsTo(models.Alcohol_type, {
           foreignKey: {
             allowNull: false
           }

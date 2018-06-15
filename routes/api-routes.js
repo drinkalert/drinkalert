@@ -21,8 +21,8 @@ module.exports = function(app) {
       });
   });
 
-  // POST route for saving a new post
-  app.post("/api/users", function(req, res) {
+  // POST route for new registration
+  app.post("/api/register", function(req, res) {
     console.log(req.body);
     db.User.create({
       name: req.body.name,

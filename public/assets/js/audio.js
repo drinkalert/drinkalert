@@ -1,6 +1,7 @@
 var introBurb = new Audio ("assets/audio/introBurp.mp3");
 var buttonBurp = new Audio ("assets/audio/buttonBurp.mp3");
 
+
 setTimeout(oneSecond, 1000); 
 
 function oneSecond() {
