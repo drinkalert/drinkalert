@@ -13,23 +13,23 @@
 
     <h1> How tipsy would you like to be on a scale of 1 to 4!</h1>
 
-        <div class="slider-holder">
-            <div id="slider"></div>
-            <a class="value">How drunk will you get?</a>
-        </div>
+    <div class="slidecontainer">
+            <input type="range" min="1" max="4" value="1" class="slider" id="myRange">
+
+            <p>Value: <span id="demo"></span></p>
+          </div>
 
         <div id="levels"></div>
-            
+
+        <div id="drunkness"></div>
+           <br>
+           <br> 
         <div>
             <button type="button" id="drinks">Get Tipsy</button>
         </div>
 
-        <div id="drunkness"></div>
-
         <div id = "formula"></div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="assets/js/slider.js"></script>
     
 </body>

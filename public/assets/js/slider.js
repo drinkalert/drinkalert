@@ -1,44 +1,32 @@
 $(document).ready(function() {
 
-    var input;
-    $(function() {
-        $( "#slider" ).slider({
-            min: 0,
-            range: false,
-            step: 0.001,
-            max: 4,
-            value: 0,
-            animate:"slow",
-            orientation: "horizontal",
-            slide: function( event, ui ) {
-                $(".value").text("How drunk will you get: " + ui.value.toFixed(1));
-                input = ui.value.toFixed(1)
-            }
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+    var number;
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+        number = this.value
+        textAppend(number)
+    }
 
-        });
-    });
-
-    function textAppend(input) {
-        if (0 <= input <=0.5) {
-            $("#drunkness").text("Way Too Sober")
-        } else if (0.5 < input <= 1) {
+    function textAppend(number) {
+        console.log(number)
+        if (number === "1") {
             $("#drunkness").text("Cheap Date")
-        }else if (1 < input <= 2) {
-            $("#drunkness").text("Tipsy")
-        }else if (2 < input <= 3) {
-            $("#drunkness").text("Drunk")
-        } else if (3 < input <= 4) {
+        } else if(number === "2") {
+            $("#drunkness").text("Buzzed Light Year")
+        }else if (number === "3") {
+            $("#drunkness").text("YOLO")
+        }else if (number === "4") {
             $("#drunkness").text("David Drunk")
         }
     }
 
-    setInterval(function(){
-        textAppend(input)
-      }, 500);
-
 
 $("#drinks").on("click", function () {
-    console.log(input)
+    console.log(number)
     var hours = 2
     var genderConstant = 0.68
     var weight = 220

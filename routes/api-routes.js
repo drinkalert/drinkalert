@@ -32,6 +32,16 @@ module.exports = function(app) {
       });
   });
 
+  // get route for user selected drink
+  app.get("/api/alcohol/:name", function(req, res) {
+    db.Alcohol.findOne({
+      name: req.params.name
+    })
+    .then(function(dbAlcohol) {
+      console.log(`Found alcohol: ${ dbAlcohol.name }`)
+      res.json(dbAlcohol)
+    })
+  })
 
   // POST route for new registration
   app.post("/api/users", function(req, res) {
