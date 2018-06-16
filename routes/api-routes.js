@@ -21,6 +21,18 @@ module.exports = function(app) {
       });
   });
 
+
+  app.get("/api/users:id", function(req, res) {
+    db.User.findOne({
+      id: req.params.id
+    })
+      .then(function(dbUser) {
+        console.log(`Found user: ${dbUser.name}`)
+        res.json(dbUser);
+      });
+  });
+
+
   // POST route for new registration
   app.post("/api/users", function(req, res) {
     console.log(req.body);
@@ -34,6 +46,7 @@ module.exports = function(app) {
       sex: req.body.sex,
     })
       .then(function(dbUser) {
+        console.log(`New User ${dbUser.name}, with id ${dbUser.id} has been created.`)
         res.json(dbUser);
       });
   });

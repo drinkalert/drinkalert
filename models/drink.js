@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
         },
 
         drink_frequency: {
-            type: DataTypes.FLOAT,
+            type: DataTypes.ENUM,
+            values:['Cheap Date','Buzz Light', 'YOLO', 'Dave']
         },
 
         drink_start_time: {
