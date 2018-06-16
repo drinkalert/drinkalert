@@ -14,25 +14,28 @@
 
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="/api/register">
+  <form class="modal-content" id="userForm">
     <div class="container">
       <h1>Sign Up</h1>
       <p>Please fill in this form to create an account.</p>
       <hr>
       <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
+      <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
       <label for="psw-repeat"><b>Repeat Password</b></label>
       <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
+      <label for="email"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" id="name"  required>
+
       <label for="email"><b>Weight</b></label>
-      <input type="text" placeholder="Enter Weight (lbs)" name="weight" required>
+      <input type="text" placeholder="Enter Weight (lbs)" name="weight" id="weight"  required>
 
       <label for="email"><b>Sex</b></label>
-      <input type="text" placeholder="Enter Sex (m/f)" name="sex" required>
+      <input type="text" placeholder="Enter Sex (m/f)" name="sex" id="sex" required>
 
 {{!--       
       <label>
@@ -61,3 +64,5 @@ window.onclick = function(event) {
     }
 }
 </script>
+
+<script src="/assets/js/register.js"></script>

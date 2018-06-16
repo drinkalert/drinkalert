@@ -28,7 +28,8 @@ module.exports = function(sequelize, DataTypes) {
         },
 
         sex: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM,
+            values: ['m','f','yes','other'],
             allowNull: false,
         },
 
