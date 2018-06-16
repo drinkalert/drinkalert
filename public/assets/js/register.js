@@ -52,8 +52,8 @@ $(document).ready(function() {
     // Submits a new user and brings user to main page upon completion
     function submitUser(newUser) {
       console.log('im posting a new user')
-      $.post("/api/users/", newUser, function() {
-        window.location.href = "/drink";
+      $.post("/api/users/", newUser, function(createdUser) {
+        window.location.href = "/drink/" + createdUser.id;
       });
     }
   

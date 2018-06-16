@@ -5,6 +5,7 @@
 // Dependencies
 // =============================================================
 
+const url = require('url')
 // Requiring our Todo model
 var db = require("../models");
 
@@ -29,6 +30,7 @@ module.exports = function(app) {
       .then(function(dbUser) {
         console.log(`Found user: ${dbUser.name}`)
         res.json(dbUser);
+        res.render("drink",dbUser)
       });
   });
 
@@ -47,7 +49,13 @@ module.exports = function(app) {
     })
       .then(function(dbUser) {
         console.log(`New User ${dbUser.name}, with id ${dbUser.id} has been created.`)
-        res.json(dbUser);
+        res.send(dbUser)
+        /*
+        
+        res.redirect(url.format({
+          pathname:"/drink/" + dbUser.id
+        }));
+        */
       });
   });
 
