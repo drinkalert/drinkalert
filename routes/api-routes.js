@@ -5,6 +5,7 @@
 // Dependencies
 // =============================================================
 
+const url = require('url')
 // Requiring our Todo model
 var db = require("../models");
 
@@ -21,18 +22,40 @@ module.exports = function(app) {
       });
   });
 
+
+  app.get("/api/users:id", function(req, res) {
+    db.User.findOne({
+      id: req.params.id
+    })
+      .then(function(dbUser) {
+        console.log(`Found user: ${dbUser.name}`)
+        res.json(dbUser);
+        res.render("drink",dbUser)
+      });
+  });
+
+
   // POST route for new registration
-  app.post("/api/register", function(req, res) {
+  app.post("/api/users", function(req, res) {
     console.log(req.body);
+    console.log('api-routes post newUser')
     db.User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
       weight: req.body.weight,
       age: req.body.age,
+      sex: req.body.sex,
     })
       .then(function(dbUser) {
-        res.json(dbUser);
+        console.log(`New User ${dbUser.name}, with id ${dbUser.id} has been created.`)
+        res.send(dbUser)
+        /*
+        
+        res.redirect(url.format({
+          pathname:"/drink/" + dbUser.id
+        }));
+        */
       });
   });
 

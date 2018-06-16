@@ -1,10 +1,11 @@
 $(document).ready(function() {
+
+    console.log('from drinks.js')
     // Gets an optional query string from our url (i.e. ?user_id=23)
     var url = window.location.search;
     var userId;
     // Sets a flag for whether or not we're updating a user to be false initially
     var updating = false;
-    console.log('yolo register!')
     // If we have this section in our url, we pull out the user id from the url
     // In localhost:8080/cms?user_id=1, userId is 1
     if (url.indexOf("?user_id=") !== -1) {
@@ -52,8 +53,8 @@ $(document).ready(function() {
     // Submits a new user and brings user to main page upon completion
     function submitUser(newUser) {
       console.log('im posting a new user')
-      $.post("/api/users/", newUser, function(createdUser) {
-        window.location.href = "/drink/" + createdUser.id;
+      $.post("/api/users/", newUser, function() {
+        window.location.href = "/drink";
       });
     }
   

@@ -22,7 +22,7 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/slider.html"))
   });
 
-  app.get("/drink", drinkController.renderDrink);
+  app.get("/drink/:id", drinkController.renderDrink);
 
   app.get("/register", drinkController.newDrinker);
 
