@@ -1,46 +1,57 @@
 $(document).ready(function() {
 
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+    var input;
+    $(function() {
+        $( "#slider" ).slider({
+            min: 0,
+            range: false,
+            step: 0.001,
+            max: 4,
+            value: 0,
+            animate:"slow",
+            orientation: "horizontal",
+            slide: function( event, ui ) {
+                $(".value").text("How drunk will you get: " + ui.value.toFixed(1));
+                input = ui.value.toFixed(1)
+            }
 
+        });
+    });
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-    output.innerHTML = this.value;
+    function textAppend(input) {
+        if (0 <= input <=0.5) {
+            $("#drunkness").text("Way Too Sober")
+        } else if (0.5 < input <= 1) {
+            $("#drunkness").text("Cheap Date")
+        }else if (1 < input <= 2) {
+            $("#drunkness").text("Tipsy")
+        }else if (2 < input <= 3) {
+            $("#drunkness").text("Drunk")
+        } else if (3 < input <= 4) {
+            $("#drunkness").text("David Drunk")
+        }
+    }
 
-}
+    setInterval(function(){
+        textAppend(input)
+      }, 500);
+
 
 $("#drinks").on("click", function () {
-    var sliderNumber = slider.value
+    console.log(input)
     var hours = 2
     var genderConstant = 0.68
     var weight = 220
     var name = "Chris"
     
- var bac;
-if (sliderNumber === "1") {
-    var bac = 0.03 
-    // cheap date
+ function bac(x) {
+    var bac = parseInt(x) * 0.03
+    return bac
 }
-else if (sliderNumber === "2" ) {
-    var bac = 0.06
-    // buzzed lightyear
-}
-else if (sliderNumber === "3" ) {
-    var bac = 0.08
-    // drunk
-}
-else if (sliderNumber === "4" ) {
-    var bac = 0.11
-    // david drunk
-}
-console.log(bac)
 
+function howManyDrinks(w, x, y, z, a, b) {
 
-function howManyDrinks(w, x, y, z) {
-
-    return (((w + (x * 0.015))/100) * ((y * 453.59237) * z))/14.0000949
+    return (((w(input) + (x * 0.015))/100) * (y * 453.59237 * z))/(22.3677555 * a * b)
     
 }
 
@@ -57,3 +68,10 @@ function appendDrinkInfo(x, y) {
 }
 
 });
+
+// BAC = (((28.3495 * number_of_Drinks * fl_oz_per_drink * ac_drink * 0.789)/(weight * 453.59237 * gender)) * 100) - (hours_elapsed * 0.015)
+
+// (((BAC + (hours_elapsed * 0.015))/100) * (weight * 453.59237 * gender))/(22.3677555 * fl_oz_per_drink * ac_drink) = number_of_Drinks
+
+// (((w + (x * 0.015))/100) * ((y * 453.59237) * z))/14.0000949
+
