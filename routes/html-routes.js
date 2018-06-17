@@ -4,12 +4,13 @@
 
 // Dependencies
 // =============================================================
-var path = require("path");
-var drinkController = require("../controllers/drinkController")
+const path = require("path");
+const drinkController = require("../controllers/drinkController")
+
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
   // Each of the below routes just handles the HTML page that the user gets sent to.
 
@@ -24,7 +25,7 @@ module.exports = function(app) {
 
   app.get("/drink/:id", drinkController.renderDrink);
 
-  app.get("/register", drinkController.newDrinker);
+  app.get("/main", drinkController.renderMain);
 
   app.get("/login", drinkController.loginDrinker);
 
@@ -32,5 +33,14 @@ module.exports = function(app) {
   app.get("/user", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/user.html"));
   });
+
+  app.get("/register", drinkController.newDrinker)
+
+  app.post('/register', passport.authenticate('local-signup', {
+    successRedirect: '/main',
+    failureRedirect: '/register'
+}
+
+));
 
 };

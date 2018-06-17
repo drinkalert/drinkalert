@@ -20,12 +20,16 @@ module.exports = {
   //      msg: "This is the data being passed from drinkController.js!"
     //  });
     },
-
+    renderMain: function(req, res) {
+        res.render('partials/main', {
+          msg: "main"
+        })
+    },
     newDrinker: function(req, res){
       res.render("partials/register", {
-        msg: "registration"
+        msg: "registration time from drinkController.js"
       })
-      console.log('registraion time')
+      console.log('registration time from drinkController')
     },
 
     loginDrinker: function(req, res){
