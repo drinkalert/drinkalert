@@ -45,6 +45,16 @@ module.exports = function(app) {
     })
   })
 
+  app.get("/api/users/:name", function(req, res) {
+    db.Users.findOne({
+      name: req.params.name
+    })
+    .then(function(dbAlcohol) {
+      console.log(`Found person: ${ dbUsers.name }`)
+      res.json(dbAlcohol)
+    })
+  })
+
   // POST route for new registration
   app.post("/api/users", function(req, res) {
     console.log(req.body);

@@ -11,8 +11,8 @@ $(document).ready(function() {
         textAppend(number)
     }
 
+    // Using the slider value to change the display the name of the selected inebriation level.
     function textAppend(number) {
-        console.log(number)
         if (number === "1") {
             $("#drunkness").text("Cheap Date")
         } else if(number === "2") {
@@ -24,38 +24,63 @@ $(document).ready(function() {
         }
     }
 
-
+// Click listener
 $("#drinks").on("click", function () {
-    console.log(number)
-    var hours = 2
-    var genderConstant = 0.68
-    var weight = 220
-    var name = "Chris"
-    
- function bac(x) {
-    var bac = parseInt(x) * 0.03
-    return bac
-}
 
-function howManyDrinks(w, x, y, z, a, b) {
+    // Setting variables and ajax call to get recent user data for the BAC formula
+    var name;
+    $.get("/api/users/", function(data) {
+        console.log(data)
+      }).then(function(data) {
+        
+        // Setting variables
+        var userChoice = $("#1").val()
+        var content;
+        var ounces;
+        if (userChoice === "0.05") {
+            content = 0.05
+            ounces = 12
+        } else if (userChoice === "0.12") {
+            content = 0.12
+            ounces = 6
+        } else if (userChoice === "0.4") {
+            content = 0.4
+            ounces = 2
+        }
 
-    return (((w(input) + (x * 0.015))/100) * (y * 453.59237 * z))/(22.3677555 * a * b)
-    
-}
+        var name = data[0].name
+        var hours = $("#2").val()
+        var genderConstant;
+        if (data[0].sex === "m") {
+            genderConstant = 0.68
+        } else {
+            genderConstant = 0.55
+        }
+        var weight = data[0].weight
+        var bac = 0.03 * parseInt(number)
+        // Function for determining how many drinks the user can have based on their selected inputs
+        function howManyDrinks(w, x, y, z, a, b) {
 
-appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant))
+            return (((w + (x * 0.015))/100) * (y * 453.59237 * z))/(22.3677555 * a * b)
+            
+        }
+        
+        appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant, content, ounces))
+        
+        
+        });
+        // Function for appending the results of the howManyDrinks function to the page.
+        function appendDrinkInfo(x, y) {
+            var div = $("<div>")
+            div.append(`<h2> Pro tip ${ x }, always round up. You can have ${ parseFloat(Math.round(y * 100) / 100).toFixed(2) } drinks. </h2>`)
+        
+            $("#formula").text("")
+            $("#formula").prepend(div)
+        }
+        
+        });
 
-
-});
-
-function appendDrinkInfo(x, y) {
-    var div = $("<div>")
-    div.append(`<h2> Pro tip ${ x }, always round up. You can have ${ parseFloat(Math.round(y * 100) / 100).toFixed(2) } drinks. </h2>`)
-
-    $("#formula").append(div)
-}
-
-});
+      })
 
 // BAC = (((28.3495 * number_of_Drinks * fl_oz_per_drink * ac_drink * 0.789)/(weight * 453.59237 * gender)) * 100) - (hours_elapsed * 0.015)
 
