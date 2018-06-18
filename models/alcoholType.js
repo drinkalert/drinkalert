@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var alcohol_type = sequelize.define("alcohol_type", {
+    var Alcohol_type = sequelize.define("Alcohol_type", {
         drink_type: {
             type: DataTypes.STRING,
 
@@ -8,14 +8,14 @@ module.exports = function(sequelize, DataTypes) {
 
     });
 
-    alcohol_type.associate = function(models) {
+    Alcohol_type.associate = function(models) {
 
-        alcohol_type.hasMany(models.Alcohol.alcohol_type_id, {
+        Alcohol_type.hasMany(models.Alcohol, {
           onDelete: "cascade"
         });
       };
-    return alcohol_type
+    return Alcohol_type
 }
 
-User.hasMany(Post, {foreignKey: 'user_id'})
-Post.belongsTo(User, {foreignKey: 'user_id'})
+// User.hasMany(Post, {foreignKey: 'user_id'})
+// Post.belongsTo(User, {foreignKey: 'user_id'})

@@ -1,28 +1,15 @@
-	<form> 
-		
-        <div class="container">
-          <div class="block_email">
-            <label for="uname"><b>Email</b></label>
-            <input type="text" id="txtEmail" placeholder="Email" name="uname" required>
-          </div>
-          <div class="block_password">
-            <label for="psw"><b>Password</b></label>
-            <input type="password" id="txtPassword1" placeholder="Enter Password" name="psw1" required>
-          </div>
-          <div class="block_confirm_password">
-            <label for="psw"><b>Confirm Password</b></label>
-            <input type="password" id="txtPassword2" placeholder="Password Again" name="psw2" required>
-          </div>      
-         
-          <button type="submit" id="add-user">Login</button>
-          <button id="reg-user">Register</button>
-          <!-- <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label> -->
-        </div>
-      
-        <div class="container">
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-		   </form>
+  <h3>register.handlebars</h3>
+  
+  <form id="signup" name="signup" method="post" action="/main">
+        <label for="email">Email Address</label>
+        <input class="text" name="email" type="email" />
+        <label for="name">name</label>
+        <input name="name" type="text" />
+        <label for="sex">sex</label>
+        <input name="sex" type="text" />
+        <label for="weight">weight</label>
+        <input name="weight" type="text">
+        <label for="password">Password</label>
+        <input name="password" type="password" />
+        <input class="btn" type="submit" value="Sign Up" />
+    </form>

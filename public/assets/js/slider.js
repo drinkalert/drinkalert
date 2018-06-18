@@ -1,59 +1,105 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+    var number = "1";
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+        number = this.value
+        textAppend(number)
+    }
+
+    // Using the slider value to change the display the name of the selected inebriation level.
+    function textAppend(number) {
+        if (number === "1") {
+            $("#drunkness").text("Cheap Date")
+        } else if (number === "2") {
+            $("#drunkness").text("Buzzed Light Year")
+        } else if (number === "3") {
+            $("#drunkness").text("YOLO")
+        } else if (number === "4") {
+            $("#drunkness").text("Sleep through Saturday school (AKA David drunk)")
+        }
+    }
+
+    // Click listener
+    $("#drinks").on("click", function () {
+
+        // Setting variables and ajax call to get recent user data for the BAC formula
+        var name = $("#user").text().split("Welcome ")
+        console.log(name[1])
+        $.get("/api/drink/" + name[1], function (data) {
+            console.log(data)
+        }).then(function (data) {
+
+            // Setting variables
+            var userChoice = $("#1").val()
+            var content;
+            var ounces;
+            if (userChoice === "0.05") {
+                content = 0.05
+                ounces = 12
+            } else if (userChoice === "0.12") {
+                content = 0.12
+                ounces = 6
+            } else if (userChoice === "0.4") {
+                content = 0.4
+                ounces = 2
+            }
+
+            var name = data.name
+            var hours = $("#2").val()
+            var genderConstant;
+            if (data.sex === "m") {
+                genderConstant = 0.68
+            } else {
+                genderConstant = 0.55
+            }
+            var weight = data.weight
+            var bac = 0.03 * parseInt(number)
+            // Function for determining how many drinks the user can have based on their selected inputs
+            function howManyDrinks(w, x, y, z, a, b) {
+
+                return (((w + (x * 0.015)) / 100) * (y * 453.59237 * z)) / (22.3677555 * a * b)
+
+            }
+            var timer = 60
+            var min = 0
+            var sec = 0
+            var clock;
+            function startTimer() {
+                min = parseInt(timer / 60)
+                sec = parseInt(timer % 60)
+                clock = min + ":" + sec
+
+                if (timer < 0) {
+                    timer = 0
+                }
+                timer--
+                setTimeout(function () {
+                    startTimer()
+                }, 1000)
+            }
+            startTimer()
 
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-    output.innerHTML = this.value;
+            appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant, content, ounces), clock)
 
-}
+        });
+        // Function for appending the results of the howManyDrinks function to the page.
 
-$("#drinks").on("click", function () {
-    var sliderNumber = slider.value
-    var hours = 2
-    var genderConstant = 0.68
-    var weight = 220
-    var name = "Chris"
-    
- var bac;
-if (sliderNumber === "1") {
-    var bac = 0.03 
-    // cheap date
-}
-else if (sliderNumber === "2" ) {
-    var bac = 0.06
-    // buzzed lightyear
-}
-else if (sliderNumber === "3" ) {
-    var bac = 0.08
-    // drunk
-}
-else if (sliderNumber === "4" ) {
-    var bac = 0.11
-    // david drunk
-}
-console.log(bac)
+        function appendDrinkInfo(x, y, z) {
+            var div = $("<div>")
+            div.append(`<h2> Pro tip ${x}, always round up. You can have ${parseFloat(Math.round(y * 100) / 100).toFixed(2)} drinks. Get going ${z}</h2>`)
+
+            $("#formula").text("")
+            $("#formula").prepend(div)
+        }
+
+    });
+
+})
 
 
-function howManyDrinks(w, x, y, z) {
-
-    return (((w + (x * 0.015))/100) * ((y * 453.59237) * z))/14.0000949
-    
-}
-
-appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant))
-
-
-});
-
-function appendDrinkInfo(x, y) {
-    var div = $("<div>")
-    div.append(`<h2> Pro tip ${ x }, always round up. You can have ${ parseFloat(Math.round(y * 100) / 100).toFixed(2) } drinks. </h2>`)
-
-    $("#formula").append(div)
-}
-
-});

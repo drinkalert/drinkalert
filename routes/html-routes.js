@@ -4,12 +4,13 @@
 
 // Dependencies
 // =============================================================
-var path = require("path");
-var drinkController = require("../controllers/drinkController")
+const path = require("path");
+const drinkController = require("../controllers/drinkController")
+
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
   // Each of the below routes just handles the HTML page that the user gets sent to.
 
@@ -22,15 +23,37 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/slider.html"))
   });
 
-  app.get("/drink", drinkController.renderDrink);
+  app.get("/drink/:id", drinkController.renderDrink);
 
-  app.get("/register", drinkController.newDrinker);
+  app.get("/main", isLoggedIn, drinkController.renderMain);
 
   app.get("/login", drinkController.loginDrinker);
 
   // user route loads user.html
-  app.get("/user", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/user.html"));
-  });
+  // app.get("/user", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/user.html"));
+  // });
+
+  app.get("/register", drinkController.newDrinker)
+
+  app.post("/register", passport.authenticate("local-signup", {
+    successRedirect: '/main',
+    failureRedirect: '/register'
+}
+
+));
 
 };
+
+
+
+//middleware to protect route
+function isLoggedIn(req, res, next) {
+ 
+  if (req.isAuthenticated())
+   
+      return next();
+       
+  res.redirect('/login');
+
+}
