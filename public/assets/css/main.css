@@ -160,7 +160,7 @@ hr {
     margin: 0 auto;
 }
 
-/* //////////// */
+/* /////////// */
 .slidecontainer {
     width: 100%; /* Width of the outside container */
 }
@@ -199,4 +199,17 @@ hr {
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
+
+#drunkness {
+    text-align: center;
+    font-size: 50px;
+
+}
+
+.select button {width:100%; text-align:left;}
+.select .caret {position:absolute; right:10px; margin-top:10px;}
+.select:last-child>.btn {border-top-left-radius:5px; border-bottom-left-radius:5px;}
+.selected {padding-right:10px;}
+.option {width:100%;}
+
 

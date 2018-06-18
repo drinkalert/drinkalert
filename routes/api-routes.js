@@ -22,9 +22,15 @@ module.exports = function(app) {
       });
   });
 
+
   app.get("/api/users:id", function(req, res) {
+
     db.User.findOne({
-      id: req.params.id
+      where: {
+        id: req.params.id
+
+      }
+      
     })
       .then(function(dbUser) {
         console.log(`Found user: ${dbUser.name}`)
@@ -32,6 +38,31 @@ module.exports = function(app) {
         res.render("drink",dbUser)
       });
   });
+
+
+  // get route for user selected drink
+  app.get("/api/alcohol/:name", function(req, res) {
+    db.Alcohol.findOne({
+      name: req.params.name
+    })
+    .then(function(dbAlcohol) {
+      console.log(`Found alcohol: ${ dbAlcohol.name }`)
+      res.json(dbAlcohol)
+    })
+  })
+
+//  app.get("/api/drink/:name", function(req, res) {
+ //   db.User.findOne({
+//       where: {
+//         name: req.params.name
+//       },
+//     }).then(function(dbUsers) {
+//       console.log(`Found person: ${dbUsers.name}`)
+//       res.json(dbUsers)
+//       res.render("drink",dbUsers)
+//     })
+//   })
+
 
   // POST route for new registration
   app.post("/api/users", function(req, res) {
