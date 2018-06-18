@@ -25,18 +25,18 @@ module.exports = function(app, passport) {
 
   app.get("/drink/:id", drinkController.renderDrink);
 
-  app.get("/main", drinkController.renderMain);
+  app.get("/main", isLoggedIn, drinkController.renderMain);
 
   app.get("/login", drinkController.loginDrinker);
 
   // user route loads user.html
-  app.get("/user", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/user.html"));
-  });
+  // app.get("/user", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/user.html"));
+  // });
 
   app.get("/register", drinkController.newDrinker)
 
-  app.post('/register', passport.authenticate('local-signup', {
+  app.post("/register", passport.authenticate("local-signup", {
     successRedirect: '/main',
     failureRedirect: '/register'
 }
@@ -44,3 +44,16 @@ module.exports = function(app, passport) {
 ));
 
 };
+
+
+
+//middleware to protect route
+function isLoggedIn(req, res, next) {
+ 
+  if (req.isAuthenticated())
+   
+      return next();
+       
+  res.redirect('/login');
+
+}

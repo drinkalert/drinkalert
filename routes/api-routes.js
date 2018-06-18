@@ -22,7 +22,6 @@ module.exports = function(app) {
       });
   });
 
-
   app.get("/api/users:id", function(req, res) {
     db.User.findOne({
       id: req.params.id
@@ -33,7 +32,6 @@ module.exports = function(app) {
         res.render("drink",dbUser)
       });
   });
-
 
   // POST route for new registration
   app.post("/api/users", function(req, res) {
