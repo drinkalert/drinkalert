@@ -1,5 +1,11 @@
-module.exports = function(sequelize, DataTypes) {
-    var User = sequelize.define("User", {
+//Note all table objects are lowercase. db.user, not db.User!
+
+var DataTypes = require('sequelize/lib/data-types')
+
+module.exports = function(sequelize, Sequelize) {
+ 
+    var User = sequelize.define('user', {
+ 
         id: {
             allowNull: false,
             primaryKey: true,
@@ -31,32 +37,33 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.ENUM,
             values: ['m','f','yes','other'],
             allowNull: false,
+            defaultValue: 'yes',
         },
-
+ 
+        last_login: {
+            type: Sequelize.DATE
+        },
+ 
+        status: {
+            type: Sequelize.ENUM('active', 'inactive'),
+            defaultValue: 'active'
+        },
+ 
+ 
     },
-{
-    underscored: true,
-})
-//========================================== 
-// Here is where we input data for testing. Data will be generated automatically.
-    // User.sync();
+    {
+        underscored: true,
+    }
 
-    // User.create({
-    //   name: "Jose",
-    //   email: "jose@test.com",
-    //   password: "xxx",
-    //   weight: 160,
-    //   sex: "Male"
-
-    // });
-//==========================================
-
+)
     User.associate = function(models) {
 
-        User.hasMany(models.Drink, {
+        User.hasMany(models.drink, {
             onDelete: "cascade"
         })
       }
 
-    return User
+
+    return User;
+ 
 }

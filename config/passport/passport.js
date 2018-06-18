@@ -1,10 +1,11 @@
-var bCrypt = require('bcrypt-nodejs')
+//load bcrypt
+var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport, user) {
-    console.log("passport used.")
+ 
     var User = user;
     var LocalStrategy = require('passport-local').Strategy;
-
+ 
     passport.use('local-signup', new LocalStrategy(
         {
             usernameField: 'email',
@@ -36,7 +37,8 @@ module.exports = function(passport, user) {
                             sex: req.body.sex, 
                         };
 
-                    User.create(data).then(function(newUser, created) {
+                    User.create(data)
+                    .then(function(newUser, created) {
                         if (!newUser) {
                             return done(null, false);
                         }
@@ -49,31 +51,6 @@ module.exports = function(passport, user) {
         }
     ));
 
-//serialize
-passport.serializeUser(function(user, done) {
- 
-    done(null, user.id);
- 
-})
-
-// deserialize user 
-passport.deserializeUser(function(id, done) {
- 
-    User.findById(id).then(function(user) {
- 
-        if (user) {
- 
-            done(null, user.get());
- 
-        } else {
- 
-            done(user.errors, null);
- 
-        }
- 
-    });
- 
-});
 
 
 //LOCAL SIGNIN
@@ -115,6 +92,36 @@ passport.use('local-signin', new LocalStrategy(
         });
     })
 )
+
+
+
+//serialize
+passport.serializeUser(function(user, done) {
+    // var sessionUser = {id: user.id, name: user.name, email: user.email}
+    done(null, user.id);
+    // done(null, sessionUser);
+ 
+})
+
+// deserialize user 
+passport.deserializeUser(function(id, done) {
+    User.findById(id).then(function(user) {
+        if (user) {
+            done(null, user.get());
+        } else {
+            done(user.errors, null);
+        }
+    });
+});
+// passport.deserializeUser(function(sessionUser, done) {
+//     User.findById(sessionUser.id).then(function(user) {
+//         if (user) {
+//             done(null, user.get());
+//         } else {
+//             done(user.errors, null);
+//         }
+//     });
+// });
 
 
 

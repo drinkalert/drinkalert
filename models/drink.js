@@ -1,5 +1,7 @@
+//Note all table objects are lowercase.
+
 module.exports = function(sequelize, DataTypes) {
-    var Drink = sequelize.define("Drink", {
+    var Drink = sequelize.define("drink", {
         drink_date: {
             type: DataTypes.DATE,
             allowNull: false,
@@ -14,6 +16,9 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
         }
 
+    },
+    {
+        underscored: true,
     })
 //========================================== 
 // Here is where we input data for testing. Data will be generated automatically.    
@@ -29,12 +34,16 @@ module.exports = function(sequelize, DataTypes) {
 console.log("hold my beer drink.js")
     Drink.associate = function(models) {
 
-        Drink.belongsTo(models.User, {
+        Drink.belongsTo(models.user, {
             foriegnKey: {
                 allowNull: false
             }
         //   onDelete: "cascade"
+         })
+        Drink.belongsTo(models.alcohol, {
+            onDelete: 'cascade'
         })
+
       }
 
     return Drink
