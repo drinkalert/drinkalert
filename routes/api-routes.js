@@ -23,9 +23,13 @@ module.exports = function(app) {
   });
 
 
-  app.get("/api/users:id", function(req, res) {
+  app.get("/api/users/:id", function(req, res) {
     db.User.findOne({
-      id: req.params.id
+      where: {
+        id: req.params.id
+
+      }
+      
     })
       .then(function(dbUser) {
         console.log(`Found user: ${dbUser.name}`)
@@ -45,13 +49,15 @@ module.exports = function(app) {
     })
   })
 
-  app.get("/api/users/:name", function(req, res) {
-    db.Users.findOne({
-      name: req.params.name
-    })
-    .then(function(dbAlcohol) {
-      console.log(`Found person: ${ dbUsers.name }`)
-      res.json(dbAlcohol)
+  app.get("/api/drink/:name", function(req, res) {
+    db.User.findOne({
+      where: {
+        name: req.params.name
+      },
+    }).then(function(dbUsers) {
+      console.log(`Found person: ${dbUsers.name}`)
+      res.json(dbUsers)
+      res.render("drink",dbUsers)
     })
   })
 

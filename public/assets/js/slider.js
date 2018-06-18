@@ -3,7 +3,7 @@ $(document).ready(function() {
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
     output.innerHTML = slider.value; // Display the default slider value
-    var number;
+    var number = "1";
     // Update the current slider value (each time you drag the slider handle)
     slider.oninput = function() {
         output.innerHTML = this.value;
@@ -28,11 +28,12 @@ $(document).ready(function() {
 $("#drinks").on("click", function () {
 
     // Setting variables and ajax call to get recent user data for the BAC formula
-    var name;
-    $.get("/api/users/", function(data) {
+    var name = $("#user").text().split("Welcome ")
+    console.log(name[1])
+    $.get("/api/drink/" + name[1], function(data) {
         console.log(data)
       }).then(function(data) {
-        
+
         // Setting variables
         var userChoice = $("#1").val()
         var content;
@@ -48,15 +49,15 @@ $("#drinks").on("click", function () {
             ounces = 2
         }
 
-        var name = data[0].name
+        var name = data.name
         var hours = $("#2").val()
         var genderConstant;
-        if (data[0].sex === "m") {
+        if (data.sex === "m") {
             genderConstant = 0.68
         } else {
             genderConstant = 0.55
         }
-        var weight = data[0].weight
+        var weight = data.weight
         var bac = 0.03 * parseInt(number)
         // Function for determining how many drinks the user can have based on their selected inputs
         function howManyDrinks(w, x, y, z, a, b) {
@@ -82,9 +83,4 @@ $("#drinks").on("click", function () {
 
       })
 
-// BAC = (((28.3495 * number_of_Drinks * fl_oz_per_drink * ac_drink * 0.789)/(weight * 453.59237 * gender)) * 100) - (hours_elapsed * 0.015)
-
-// (((BAC + (hours_elapsed * 0.015))/100) * (weight * 453.59237 * gender))/(22.3677555 * fl_oz_per_drink * ac_drink) = number_of_Drinks
-
-// (((w + (x * 0.015))/100) * ((y * 453.59237) * z))/14.0000949
 
