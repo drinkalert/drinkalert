@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
 
     // });
 //==========================================
-console.log("hold my beer drink.js line 28")
+console.log("hold my beer drink.js")
     Drink.associate = function(models) {
 
         Drink.belongsTo(models.User, {
