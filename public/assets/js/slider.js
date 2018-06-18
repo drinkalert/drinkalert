@@ -65,25 +65,6 @@ $(document).ready(function () {
                 return (((w + (x * 0.015)) / 100) * (y * 453.59237 * z)) / (22.3677555 * a * b)
 
             }
-            var timer = 60
-            var min = 0
-            var sec = 0
-            var clock;
-            function startTimer() {
-                min = parseInt(timer / 60)
-                sec = parseInt(timer % 60)
-                clock = min + ":" + sec
-
-                if (timer < 0) {
-                    timer = 0
-                }
-                timer--
-                setTimeout(function () {
-                    startTimer()
-                }, 1000)
-            }
-            startTimer()
-
 
             appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant, content, ounces), clock)
 
