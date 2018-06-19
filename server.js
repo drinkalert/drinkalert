@@ -5,6 +5,7 @@
 // *** Dependencies
 // =============================================================
 const express = require("express");
+//const router = express.Router({ mergeParams: true });
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 

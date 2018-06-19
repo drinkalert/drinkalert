@@ -82,6 +82,7 @@ passport.use('local-signin', new LocalStrategy(
                 });
             }
             var userinfo = user.get();
+            console.log(`userinfo ${userinfo.name}`)
             return done(null, userinfo);
         })
         .catch(function(err) {
