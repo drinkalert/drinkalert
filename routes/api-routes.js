@@ -51,16 +51,25 @@ module.exports = function(app) {
     })
   })
 
- app.get("/api/dashboard/:name", function(req, res) {
+ app.get("/api/dashboard/:id", function(req, res) {
    db.user.findOne({
       where: {
-        name: req.params.name
+        id: req.params.id
       },
     }).then(function(dbUsers) {
       console.log(`Found person: ${dbUsers.name}`)
       res.json(dbUsers)
+      // res.render("dashboard",dbUsers)
     })
   })
+
+  app.get("/api/drink/", function(req, res) {
+    db.alcohol.findAll()
+    .then(function(dbDrinks) {
+       console.log(`Found drink: ${dbDrinks}`)
+       res.json(dbDrinks)
+     })
+   })
 
 
   // POST route for new registration

@@ -1,7 +1,13 @@
-
-console.log("yolo dashboard.js!")
-
 $(document).ready(function () {
+
+    // Send the PUT request.
+    // $.ajax("/api/drink/", {
+    //     type: "GET",
+    //     dataType: "json",
+    //     data: newDrinks
+    //     }).then( function(newDrinks) {
+    //         console.log(newDrinks); 
+    //     })
 
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
@@ -13,6 +19,9 @@ $(document).ready(function () {
         number = this.value
         textAppend(number)
     }
+
+    var url = window.location.href
+    var id = url.split("/dashboard:")[1]
 
     // Using the slider value to change the display the name of the selected inebriation level.
     function textAppend(number) {
@@ -30,14 +39,14 @@ $(document).ready(function () {
     // Click listener
     $("#drinks").on("click", function () {
         // Setting variables and ajax call to get recent user data for the BAC formula
-        var name = $("#user").text().split("Welcome ")
-        console.log(name[1])
-        $.get("/api/dashboard/" + name[1], function (data) {
+        $.get("/api/dashboard/" + id, function (data) {
             console.log(data)
         }).then(function (data) {
+            console.log(data.name)
+            $("#user").text(`Welcome ${ data.name }`)
 
             // Setting variables
-            var userChoice = $("#1").val()
+            var userChoice = $("#drink_menu").val()
             var content;
             var ounces;
             if (userChoice === "0.05") {
@@ -59,8 +68,11 @@ $(document).ready(function () {
             } else {
                 genderConstant = 0.55
             }
+
             var weight = data.weight
+            console.log(weight)
             var bac = 0.03 * parseInt(number)
+
             // Function for determining how many drinks the user can have based on their selected inputs
             function howManyDrinks(w, x, y, z, a, b) {
 
@@ -84,4 +96,5 @@ $(document).ready(function () {
     });
 
 })
+
 
