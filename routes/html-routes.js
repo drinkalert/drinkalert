@@ -55,17 +55,19 @@ module.exports = function(app, passport) {
     // isLoggedIn, drinkController.dashboard);
 
     app.get("/dashboard/:id",isLoggedIn, function(req, res) {
-        console.log(`req.params.id before it goes into findone ${req.params.id}`)
+        //console.log(`req.params.id before it goes into findone ${req.params.id}`)
         db.user.findOne({
           where:{id : req.params.id}
         })
         // db.user.findAll()
           .then(function(dbUser) {
-            console.log(`req.params.id is ${req.params.id}`)
-            console.log(`Found user: ${dbUser}`)
+            // console.log(`req.params.id is ${req.params.id}`)
+            // console.log(`Found user: ${dbUser}`)
             // console.log(`user weight: ${dbUser.weight}`)
             //res.json(dbUser);
-            res.render("partials/dashboard",{dbUser})
+            res.render("partials/dashboard",{dbUser
+            //res.render("partials/dashboard",{encodedJson: encodeURIComponent(JSON.stringify(dbUser))
+            })
           })
       })
    

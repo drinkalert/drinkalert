@@ -63,7 +63,7 @@ module.exports = function(app) {
 //     })
 //   })
 
-  app.get("/api/drink/", function(req, res) {
+  app.get("/api/alcohol/", function(req, res) {
     db.alcohol.findAll()
     .then(function(dbDrinks) {
       var hbsObject = {
