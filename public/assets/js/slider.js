@@ -66,14 +66,14 @@ $(document).ready(function () {
 
             }
 
-            appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant, content, ounces), clock)
+            appendDrinkInfo(name, howManyDrinks(bac, hours, weight, genderConstant, content, ounces))
 
         });
         // Function for appending the results of the howManyDrinks function to the page.
 
-        function appendDrinkInfo(x, y, z) {
+        function appendDrinkInfo(x, y) {
             var div = $("<div>")
-            div.append(`<h2> Pro tip ${x}, always round up. You can have ${parseFloat(Math.round(y * 100) / 100).toFixed(2)} drinks. Get going ${z}</h2>`)
+            div.append(`<h2> Pro tip ${x}, always round up. You can have ${parseFloat(Math.round(y * 100) / 100).toFixed(2)} drinks.</h2>`)
 
             $("#formula").text("")
             $("#formula").prepend(div)
