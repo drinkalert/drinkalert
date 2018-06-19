@@ -51,23 +51,27 @@ module.exports = function(app) {
     })
   })
 
- app.get("/api/drink/:name", function(req, res) {
-   db.user.findOne({
-      where: {
-        name: req.params.name
-      },
-    }).then(function(dbUsers) {
-      console.log(`Found person: ${dbUsers.name}`)
-      res.json(dbUsers)
-      res.render("drink",dbUsers)
-    })
-  })
+//  app.get("/api/drink/:name", function(req, res) {
+//    db.user.findOne({
+//       where: {
+//         name: req.params.name
+//       },
+//     }).then(function(dbUsers) {
+//       console.log(`Found person: ${dbUsers.name}`)
+//       res.json(dbUsers)
+//       res.render("drink",dbUsers)
+//     })
+//   })
 
   app.get("/api/drink/", function(req, res) {
     db.alcohol.findAll()
     .then(function(dbDrinks) {
+      var hbsObject = {
+        alcohol: dbDrinks
+      }
        console.log(`Found drink: ${dbDrinks}`)
        res.json(dbDrinks)
+       //res.render("partials/dashboard",dbDrinks)
      })
    })
 

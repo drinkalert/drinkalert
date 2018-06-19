@@ -4,7 +4,14 @@
     <p>Your weight is {{dbUser.weight}}</p>
     
   <h1> How tipsy would you like to be on a scale of 1 to 4!</h1>
-    <h3>new injection part 2</h3>
+{{dbDrinks.name}}
+
+
+    <ul>
+  {{#each dbDrinks}}
+     <li>drunk {{name}}</li> 
+  {{/each}}
+</ul>
 
     <div class="slidecontainer">
             <input type="range" min="1" max="4" value="1" class="slider" id="myRange">
