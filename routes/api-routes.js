@@ -51,17 +51,16 @@ module.exports = function(app) {
     })
   })
 
-//  app.get("/api/drink/:name", function(req, res) {
- //   db.User.findOne({
-//       where: {
-//         name: req.params.name
-//       },
-//     }).then(function(dbUsers) {
-//       console.log(`Found person: ${dbUsers.name}`)
-//       res.json(dbUsers)
-//       res.render("drink",dbUsers)
-//     })
-//   })
+ app.get("/api/dashboard/:name", function(req, res) {
+   db.user.findOne({
+      where: {
+        name: req.params.name
+      },
+    }).then(function(dbUsers) {
+      console.log(`Found person: ${dbUsers.name}`)
+      res.json(dbUsers)
+    })
+  })
 
 
   // POST route for new registration
