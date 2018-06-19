@@ -1,5 +1,7 @@
+//Note all table objects are lowercase.
+
 module.exports = function(sequelize, DataTypes) {
-    var Alcohol = sequelize.define("Alcohol", {
+    var Alcohol = sequelize.define("alcohol", {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -17,15 +19,20 @@ module.exports = function(sequelize, DataTypes) {
         //     type: DataTypes.INTEGER,
         // }
 
-    });
+    },
+{underscored: true,
+});
 
     Alcohol.associate = function(models) {
 
-        Alcohol.belongsTo(models.Alcohol_type, {
+        Alcohol.belongsTo(models.alcohol_type, {
           foreignKey: {
             allowNull: false
           }
-        });
+        })
+        Alcohol.hasMany(models.drink,{
+            onDelete: 'cascade'
+        })
     }
     return Alcohol
 }

@@ -1,20 +1,25 @@
+//Note all table objects are lowercase.
+
 module.exports = function(sequelize, DataTypes) {
-    var Alcohol_type = sequelize.define("Alcohol_type", {
+    var alcoholType = sequelize.define("alcohol_type", {
         drink_type: {
             type: DataTypes.STRING,
 
             allowNull: false,
         },
 
-    });
+    },
+    {
+        underscored: true,
+    })
 
-    Alcohol_type.associate = function(models) {
+    alcoholType.associate = function(models) {
 
-        Alcohol_type.hasMany(models.Alcohol, {
+        alcoholType.hasMany(models.alcohol, {
           onDelete: "cascade"
-        });
-      };
-    return Alcohol_type
+        })
+      }
+    return alcoholType
 }
 
 // User.hasMany(Post, {foreignKey: 'user_id'})

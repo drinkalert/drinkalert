@@ -1,38 +1,40 @@
-// var express = require("express");
+const db = require("../models")
 
-// var router = express.Router();
+var exports = module.exports = {}
 
-var db = require("../models");
-// // Import the model (burger.js) to use its database functions.
-// var burger = require("../models/burger.js");
+ 
+exports.signup = function(req, res) {
+    res.render('partials/signup');
+ 
+}
 
+exports.signin = function(req, res) {
+ 
+    res.render('partials/signin');
+ 
+}
 
-module.exports = {
-    renderDrink: function(req, res) {
-      console.log('req.params')
-      console.log(req.params)
-      db.User.findById(req.params.id)
-      .then(function(user){
-        res.render('partials/drinks', {User: user})
-      })
+// exports.dashboard = function(req, res) {
+//     db.User.findById(req.params.id)
+//     .then(function(user){
+//         res.render('partials/dashboard', {User: user});
+//     })
+    
+ 
+// }
 
-//      res.render("partials/drinks", {
-  //      msg: "This is the data being passed from drinkController.js!"
-    //  });
-    },
+exports.dashboard = function(req, res) {
+    res.render('partials/dashboard');
+ 
+}
 
-    newDrinker: function(req, res){
-      res.render("partials/register", {
-        msg: "registration"
-      })
-      console.log('registraion time')
-    },
+exports.logout = function(req, res) {
+ 
+    req.session.destroy(function(err) {
+ 
+        res.redirect('/');
+ 
+    });
+ 
+}
 
-    loginDrinker: function(req, res){
-      res.render("partials/login", {
-        msg: "login"
-      })
-      console.log('login happens')
-    },
-  };
-  
