@@ -1,5 +1,5 @@
 const path = require("path");
-const drinkController = require('../controllers/drinkcontroller')
+const drinkController = require('../controllers/drinkController')
 // Requiring our Todo model
 const db = require("../models");
 
