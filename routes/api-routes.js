@@ -6,7 +6,7 @@
 // =============================================================
 
 const url = require('url')
-const drinkController = require('../controllers/drinkcontroller')
+const drinkController = require('../controllers/drinkController')
 // Requiring our Todo model
 var db = require("../models");
 

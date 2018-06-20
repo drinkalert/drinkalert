@@ -7,7 +7,7 @@
 const express = require("express");
 //const router = express.Router({ mergeParams: true });
 const bodyParser = require("body-parser");
-const methodOverride = require("method-override");
+//const methodOverride = require("method-override");
 
 const passport = require('passport')
 const session = require('express-session')
@@ -23,7 +23,7 @@ const db = require("./models");
 
 
 // Method override for RESTFul form submissions
-app.use(methodOverride("_method"));
+//app.use(methodOverride("_method"));
 
 // Sets up the Express app to handle data parsing
 
