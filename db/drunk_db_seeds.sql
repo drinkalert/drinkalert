@@ -123,9 +123,9 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `weight`, `sex`, `last_login`, `status`, `created_at`, `updated_at`)
 VALUES
-	('37ff1cdd-5ad8-40cf-8308-db43843e550c','Hodor','h@h.com','$2a$08$hiMTcphLU1CzCFRueYp7Je39rj3Th31rIa3p9sT6EZuGXAcPRBiYW',300,'m',NULL,'active','2018-06-19 08:09:51','2018-06-19 08:09:51'),
-	('64eb57c9-1989-4df7-b33c-5f453802cacc','Daenerys Targaryen','d@d.com','$2a$08$hiMTcphLU1CzCFRueYp7Je39rj3Th31rIa3p9sT6EZuGXAcPRBiYW',90,'f',NULL,'active','2018-06-19 08:15:31','2018-06-19 08:15:31'),
-	('8e5ff21f-7b9d-4833-bc23-080c5336b95e','Brienne of Tarth','b@b.com','$2a$08$hiMTcphLU1CzCFRueYp7Je39rj3Th31rIa3p9sT6EZuGXAcPRBiYW',200,'m',NULL,'active','2018-06-19 09:10:35','2018-06-19 09:10:35');
+	('37ff1cdd-5ad8-40cf-8308-db43843e550c','Hodor','hodor@h.com','$2a$08$hiMTcphLU1CzCFRueYp7Je39rj3Th31rIa3p9sT6EZuGXAcPRBiYW',300,'m',NULL,'active','2018-06-19 08:09:51','2018-06-19 08:09:51'),
+	('64eb57c9-1989-4df7-b33c-5f453802cacc','Daenerys Targaryen','dani@d.com','$2a$08$hiMTcphLU1CzCFRueYp7Je39rj3Th31rIa3p9sT6EZuGXAcPRBiYW',90,'f',NULL,'active','2018-06-19 08:15:31','2018-06-19 08:15:31'),
+	('8e5ff21f-7b9d-4833-bc23-080c5336b95e','Brienne of Tarth','brienne@b.com','$2a$08$hiMTcphLU1CzCFRueYp7Je39rj3Th31rIa3p9sT6EZuGXAcPRBiYW',200,'m',NULL,'active','2018-06-19 09:10:35','2018-06-19 09:10:35');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
