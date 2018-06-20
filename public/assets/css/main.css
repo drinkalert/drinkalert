@@ -256,3 +256,8 @@ hr {
     cursor: pointer; /* Cursor on hover */
 }
 
+#drunkness {
+    text-align: center;
+    font-size: 60px;
+
+}
