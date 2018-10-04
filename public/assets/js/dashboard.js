@@ -76,23 +76,24 @@ $(document).ready(function () {
 
             // Setting variables
             //var userChoice 
-            var content = $("#drink_menu").val()/100
-            var ounces
-            $("#drink_menu :selected").each(function(){
-               ounces = $(this).data('ounces')
-            })
+            var userChoice = $("#drink_menu").val()
+            var ounces;
+	    var content;
+//             $("#drink_menu :selected").each(function(){
+//                ounces = $(this).data('ounces')
+//             })
     
 
-            // if (userChoice === "0.05") {
-            //     content = 0.05
-            //     ounces = 12
-            // } else if (userChoice === "0.12") {
-            //     content = 0.12
-            //     ounces = 6
-            // } else if (userChoice === "0.4") {
-            //     content = 0.4
-            //     ounces = 2
-            // }
+            if (userChoice === "0.05") {
+                content = 0.05
+                ounces = 12
+            } else if (userChoice === "0.12") {
+                content = 0.12
+                ounces = 6
+            } else if (userChoice === "0.4") {
+                content = 0.4
+                ounces = 2
+            }
 
             var name = data.name
             var hours = $("#2").val()
