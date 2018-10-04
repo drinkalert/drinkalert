@@ -1,7 +1,8 @@
 const path = require("path");
-const drinkController = require('../controllers/drinkcontroller')
+const drinkController = require('../controllers/drinkController')
 // Requiring our Todo model
 const db = require("../models");
+
 
 module.exports = function(app, passport) {
  
@@ -13,6 +14,30 @@ module.exports = function(app, passport) {
 
     app.get('/signin', drinkController.signin)
 
+
+    app.post('/signin', function(req, res, next) {
+      passport.authenticate('local-signin', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/signup'); }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          console.log(`user.name in app.post/signin is ${user.name}`)
+          return res.redirect('/dashboard/' + user.id);
+        });
+      })(req, res, next);
+    })
+
+    app.post('/signup', function(req, res, next) {
+      passport.authenticate('local-signup', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/signup'); }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.redirect('/dashboard/' + user.id);
+        });
+      })(req, res, next);
+    })
+
     // app.post('/signup', 
     // passport.authenticate('local-signup', {
     //     successRedirect: '/dashboard',
@@ -20,16 +45,7 @@ module.exports = function(app, passport) {
     // })
     // )
 
-    app.post('/signup', function(req, res, next) {
-        passport.authenticate('local-signup', function(err, user, info) {
-          if (err) { return next(err); }
-          if (!user) { return res.redirect('/signup'); }
-          req.logIn(user, function(err) {
-            if (err) { return next(err); }
-            return res.redirect('/dashboard:' + user.id);
-          });
-        })(req, res, next);
-      })
+    
     
     //app.get('/dashboard',drinkController.dashboard); 
     //modified to check if isLoggedIn
@@ -38,17 +54,40 @@ module.exports = function(app, passport) {
     // app.get('/dashboard',
     // isLoggedIn, drinkController.dashboard);
 
-    app.get("/dashboard:id",isLoggedIn, function(req, res) {
+    app.get("/dashboard/:id",isLoggedIn, function(req, res) {
+        //console.log(`req.params.id before it goes into findone ${req.params.id}`)
         db.user.findOne({
-          id: req.params.id
+          where:{id : req.params.id}
         })
+        // db.user.findAll()
           .then(function(dbUser) {
-            console.log(`Found user: ${dbUser.name}`)
-            console.log(`user weight: ${dbUser.weight}`)
+            // console.log(`req.params.id is ${req.params.id}`)
+            // console.log(`Found user: ${dbUser}`)
+            // console.log(`user weight: ${dbUser.weight}`)
             //res.json(dbUser);
-            res.render("partials/dashboard",{dbUser})
-          });
-      });
+            res.render("partials/dashboard",{dbUser
+            //res.render("partials/dashboard",{encodedJson: encodeURIComponent(JSON.stringify(dbUser))
+            })
+          })
+      })
+   
+
+      // app.get("/dashboard:id",isLoggedIn, function(req, res) {
+      //   Promise.all([
+      //     db.user.findOne({id: req.params.id}),
+      //     db.alcohol.findAll()
+      //   ])
+      //     .then(function(dbUser, dbDrinks) {
+      //       console.log(`Found user: ${dbUser.name}`)
+      //       console.log(`user weight: ${dbUser.weight}`)
+      //       //res.json(dbUser);
+      //       res.render("partials/dashboard",{dbUser},{dbDrinks})
+      //     })
+      //     // .catch(err => {
+      //     //   return err
+      //     // })
+      // })
+
 
 
 
@@ -61,16 +100,7 @@ module.exports = function(app, passport) {
 //     })
 // )
 
-app.post('/signin', function(req, res, next) {
-    passport.authenticate('local-signin', function(err, user, info) {
-      if (err) { return next(err); }
-      if (!user) { return res.redirect('/signup'); }
-      req.logIn(user, function(err) {
-        if (err) { return next(err); }
-        return res.redirect('/dashboard:' + user.id);
-      });
-    })(req, res, next);
-  })
+
 
 
 

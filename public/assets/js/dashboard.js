@@ -8,6 +8,35 @@ $(document).ready(function () {
     //     }).then( function(newDrinks) {
     //         console.log(newDrinks); 
     //     })
+    $('#myCarousel').carousel({
+		interval:   4000
+	});
+	
+	var clickEvent = false;
+	$('#myCarousel').on('click', '.nav a', function() {
+			clickEvent = true;
+			$('.nav li').removeClass('active');
+			$(this).parent().addClass('active');		
+	}).on('slid.bs.carousel', function(e) {
+		if(!clickEvent) {
+			var count = $('.nav').children().length -1;
+			var current = $('.nav li.active');
+			current.removeClass('active').next().addClass('active');
+			var id = parseInt(current.data('slide-to'));
+			if(count == id) {
+				$('.nav li').first().addClass('active');	
+			}
+		}
+		clickEvent = false;
+	});
+ 
+    $.getJSON('/api/alcohol/', function (data) {
+        
+        for(var i=0; i<data.length; i++){
+            console.log(data[i].name)
+            $("#drink_menu").append("<option data-ounces="+ data[i].ounces +" value="+data[i].alcohol_content+">"+data[i].name+"</option>")
+        }
+    })
 
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
@@ -20,8 +49,8 @@ $(document).ready(function () {
         textAppend(number)
     }
 
-    var url = window.location.href
-    var id = url.split("/dashboard:")[1]
+    var url = window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);
 
     // Using the slider value to change the display the name of the selected inebriation level.
     function textAppend(number) {
@@ -39,16 +68,21 @@ $(document).ready(function () {
     // Click listener
     $("#drinks").on("click", function () {
         // Setting variables and ajax call to get recent user data for the BAC formula
-        $.get("/api/dashboard/" + id, function (data) {
-            console.log(data)
+        $.get("/api/users/" + id, function (data) {
+            
         }).then(function (data) {
             console.log(data.name)
             $("#user").text(`Welcome ${ data.name }`)
 
             // Setting variables
+            //var userChoice 
             var userChoice = $("#drink_menu").val()
-            var content;
             var ounces;
+            // $("#drink_menu :selected").each(function(){
+            //    ounces = $(this).data('ounces')
+            // })
+    
+
             if (userChoice === "0.05") {
                 content = 0.05
                 ounces = 12
@@ -75,8 +109,18 @@ $(document).ready(function () {
 
             // Function for determining how many drinks the user can have based on their selected inputs
             function howManyDrinks(w, x, y, z, a, b) {
-
-                return (((w + (x * 0.015)) / 100) * (y * 453.59237 * z)) / (22.3677555 * a * b)
+                var result = (((w + (x * 0.015)) / 100) * (y * 453.59237 * z)) / (22.3677555 * a * b)
+               
+               console.log(`w ${w}`)
+               console.log(x)
+               console.log(y)
+               console.log(z)
+               console.log(a)
+               console.log(b)
+               
+                console.log(`result ${result}`)
+                
+                return result
 
             }
 
@@ -96,5 +140,3 @@ $(document).ready(function () {
     });
 
 })
-
-

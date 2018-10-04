@@ -6,12 +6,13 @@
 // =============================================================
 
 const url = require('url')
+const drinkController = require('../controllers/drinkController')
 // Requiring our Todo model
 var db = require("../models");
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
   // GET route for getting all of the posts
 
@@ -23,9 +24,9 @@ module.exports = function(app) {
   });
 
 
-  app.get("/api/users:id", function(req, res) {
+  app.get("/api/users/:id", isLoggedIn, function(req, res) {
 
-    db.User.findOne({
+    db.user.findOne({
       where: {
         id: req.params.id
 
@@ -35,7 +36,7 @@ module.exports = function(app) {
       .then(function(dbUser) {
         console.log(`Found user: ${dbUser.name}`)
         res.json(dbUser);
-        res.render("drink",dbUser)
+        // res.render("drink",dbUser)
       });
   });
 
@@ -51,23 +52,27 @@ module.exports = function(app) {
     })
   })
 
- app.get("/api/dashboard/:id", function(req, res) {
-   db.user.findOne({
-      where: {
-        id: req.params.id
-      },
-    }).then(function(dbUsers) {
-      console.log(`Found person: ${dbUsers.name}`)
-      res.json(dbUsers)
-      // res.render("dashboard",dbUsers)
-    })
-  })
+//  app.get("/api/drink/:name", function(req, res) {
+//    db.user.findOne({
+//       where: {
+//         name: req.params.name
+//       },
+//     }).then(function(dbUsers) {
+//       console.log(`Found person: ${dbUsers.name}`)
+//       res.json(dbUsers)
+//       res.render("drink",dbUsers)
+//     })
+//   })
 
-  app.get("/api/drink/", function(req, res) {
+  app.get("/api/alcohol/", function(req, res) {
     db.alcohol.findAll()
     .then(function(dbDrinks) {
+      var hbsObject = {
+        alcohol: dbDrinks
+      }
        console.log(`Found drink: ${dbDrinks}`)
        res.json(dbDrinks)
+       //res.render("partials/dashboard",dbDrinks)
      })
    })
 
@@ -121,3 +126,15 @@ module.exports = function(app) {
       });
   });
 };
+
+
+//middleware to protect route
+function isLoggedIn(req, res, next) {
+    
+  if (req.isAuthenticated())
+   
+      return next();
+       
+  res.redirect('/signin');
+
+}
